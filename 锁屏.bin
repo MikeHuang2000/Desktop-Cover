@@ -1,0 +1,33 @@
+TEAM ENVI^ ENVIMODE=1| ENVI^ FORCELOCAL=1
+//SCRN -win  &&maxw,&&maxh   //不含任务栏 
+SCRN   &&maxw,&&maxh         //覆盖任务栏 
+    
+_SUB WIN1,L0T0W100H100,,,,-#,, -top -nocap  -forcenomin  
+    ENVI @this.bkcolor=000000
+    ENVI @this.pos=::%maxw%:%maxh%
+    HKEY Ctrl+Alt+l,--del
+    KILL @WIN3
+    //HKEY* Ctrl+Shift+u,KILL @WIN1
+    HKEY Ctrl+Alt+l,TEAM HKEY Ctrl+Alt+l,--del| THREAD* CALL WIN3| KILL @WIN1
+    
+_END
+
+_SUB WIN2,W250H150,桌面锁定器M,
+    ENVI @this.Visible=0
+    //MENU clean,clean,***
+    //MENU lockdesk,锁定桌面,CALL WIN1
+    MENU _help,帮助,MESS Ctrl+Alt+L:锁定/解锁@帮助
+    MENU _exit,退出,EXEC =!CMD.EXE /C "taskkill /f /im 桌面锁定器.exe"
+    CALL WIN3
+_END
+
+_SUB WIN3,W250H150,桌面锁定器L,
+    ENVI @this.Visible=0
+    HKEY Ctrl+Alt+l,--del
+    HKEY Ctrl+Alt+l,TEAM HKEY Ctrl+Alt+l,--del| WIN1
+_END
+
+WIN2
+
+
+
